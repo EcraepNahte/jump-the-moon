@@ -7,7 +7,7 @@ extends CharacterBody3D
 @onready var crouch_raycast = $CrouchRaycast
 @onready var front_face = $LedgeRaycasts/FrontFace
 @onready var top_of_ledge = $LedgeRaycasts/TopOfLedge
-@onready var new_pos = $LedgeRaycasts/NewPos
+@onready var high_ledge: RayCast3D = $LedgeRaycasts/HighLedge
 
 const JUMP_VELOCITY = 4.5
 const LEDGE_JUMP_VELOCITY = 6.0
@@ -19,15 +19,6 @@ const STANDING_HEAD_HEIGHT = 0.75
 const CROUCHING_HEAD_HEIGHT = 0.0
 const LERP_SPEED = 5.0
 const JUMPS = 1
-
-# TODO Make a settings page
-const TOGGLE_SPRINT = true
-const TOGGLE_CROUCH = true
-const LOOK_SENSITIVITY = 0.4
-const JOY_DEADZONE = 0.2
-const CONTROLLER_SENSITIVITY_MODIFIER = 10.0
-const INVERT_X = false
-const INVERT_Y = false
 
 var move_speed = 5.0
 var sprinting = false
@@ -45,36 +36,39 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		rotate_y(deg_to_rad(event.relative.x * LOOK_SENSITIVITY) * (1 if INVERT_X else -1))
-		head.rotate_x(deg_to_rad(event.relative.y * LOOK_SENSITIVITY) * (1 if INVERT_Y else -1))
+		rotate_y(deg_to_rad(event.relative.x * GameManager.look_sensitivity) * (1 if GameManager.invert_x else -1))
+		head.rotate_x(deg_to_rad(event.relative.y * GameManager.look_sensitivity) * (1 if GameManager.invert_y else -1))
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-98), deg_to_rad(98))
 	elif event is InputEventJoypadMotion:
 		if event.axis == 2:
 			joystick_v_event = event
 		elif event.axis == 3:
 			joystick_h_event = event
-		
 
 
 func _physics_process(delta):
-	_handle_controller_look(delta)
+	_handle_controller_look()
 	_check_mantle()
 	_control_loop(delta)
 	move_and_slide()
 
 
-func _handle_controller_look(delta):
+func _handle_controller_look():
 	if joystick_v_event:
-		if abs(joystick_v_event.get_axis_value()) > JOY_DEADZONE:
-			rotate_y(deg_to_rad(joystick_v_event.get_axis_value() * LOOK_SENSITIVITY) * CONTROLLER_SENSITIVITY_MODIFIER * (1 if INVERT_X else -1))
+		if abs(joystick_v_event.get_axis_value()) > GameManager.joy_deadzone:
+			rotate_y(deg_to_rad(joystick_v_event.get_axis_value() * GameManager.look_sensitivity) * GameManager.controller_sensitivity_modifier * (1 if GameManager.invert_x else -1))
 	
 	if joystick_h_event:
-		if abs(joystick_h_event.get_axis_value()) > JOY_DEADZONE:
-			head.rotate_x(deg_to_rad(joystick_h_event.get_axis_value() * LOOK_SENSITIVITY) * CONTROLLER_SENSITIVITY_MODIFIER * (1 if INVERT_Y else -1))
+		if abs(joystick_h_event.get_axis_value()) > GameManager.joy_deadzone:
+			head.rotate_x(deg_to_rad(joystick_h_event.get_axis_value() * GameManager.look_sensitivity) * GameManager.controller_sensitivity_modifier * (1 if GameManager.invert_y else -1))
 			head.rotation.x = clamp(head.rotation.x, deg_to_rad(-98), deg_to_rad(98))
 
 
 func _control_loop(delta):
+	# Handle Pause
+	if Input.is_action_just_pressed("pause"):
+		GameManager.pause_game()
+		
 	# Add the gravity.
 	if not is_on_floor() and not grabbing_ledge:
 		velocity += get_gravity() * delta
@@ -90,7 +84,7 @@ func _control_loop(delta):
 		jump_count = jump_count + 1
 	
 	# Handle Crouch
-	if TOGGLE_CROUCH:
+	if GameManager.toggle_crouch:
 		if Input.is_action_just_pressed("crouch"):
 			if crouching:
 				trying_to_stand = true
@@ -102,7 +96,7 @@ func _control_loop(delta):
 		trying_to_stand = !Input.is_action_pressed("crouch")
 	
 	# Handle Sprint
-	if TOGGLE_SPRINT:
+	if GameManager.toggle_sprint:
 		if Input.is_action_just_pressed("sprint"):
 			sprinting = !sprinting
 			trying_to_stand = true
@@ -141,7 +135,7 @@ func _control_loop(delta):
 
 
 func _check_mantle():
-	grabbing_ledge = front_face.is_colliding() and !top_of_ledge.is_colliding()
+	grabbing_ledge = (front_face.is_colliding() or high_ledge.is_colliding()) and !top_of_ledge.is_colliding() 
 
 
 func _try_standing_up(delta):
