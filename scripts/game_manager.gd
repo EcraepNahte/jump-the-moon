@@ -3,6 +3,9 @@ extends Node
 signal pause
 signal resume
 
+const MIN_SENSITIVITY = 0.1
+const MAX_SENSITIVITY = 1.0
+
 static var toggle_sprint = true
 static var toggle_crouch = true
 static var look_sensitivity = 0.4
