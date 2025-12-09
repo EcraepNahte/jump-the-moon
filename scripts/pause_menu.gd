@@ -6,12 +6,16 @@ extends CanvasLayer
 func _ready():
 	# Hide the menu when the game starts
 	visible = false
-	show_main_menu()
 	# Ensure the menu processes input even when the game is paused
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Connect to the pause signal from the game manager
 	GameManager.pause.connect(_on_pause)
 	GameManager.resume.connect(_on_resume)
+
+
+func _input(event):
+	if event.is_action("ui_cancel"):
+		show_main_menu()
 
 
 func hide_all_menus():
@@ -22,16 +26,20 @@ func hide_all_menus():
 func show_main_menu():
 	hide_all_menus()
 	main_menu.visible = true
+	$MainMenu/Resume.grab_focus()
 
 
 func show_settings_menu():
 	hide_all_menus()
 	settings_menu.visible = true
+	$SettingsMenu/ToggleSprint.grab_focus()
 
 
 func _on_pause():
 	# Toggle the visibility of the menu root node (CanvasLayer)
 	visible = true
+	show_main_menu()
+	
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
