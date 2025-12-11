@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://dnsl2ghiipi1h"]
+[gd_scene load_steps=9 format=3 uid="uid://dnsl2ghiipi1h"]
 
 [ext_resource type="PackedScene" uid="uid://0xontrpulfdl" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://qhwdshn4lfi5" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://drm0otgfe8utj" path="res://assets/texture_07.png" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ivtsmgkpam0e" path="res://scenes/pause_menu.tscn" id="4_4iego"]
-[ext_resource type="ArrayMesh" uid="uid://bwjhdb1oktr45" path="res://Kenney/Models/OBJ format/block-grass-corner-low.obj" id="5_tefeu"]
-[ext_resource type="ArrayMesh" uid="uid://ber7sus0abfj5" path="res://Kenney/Models/OBJ format/block-grass-corner-overhang-low.obj" id="6_o6xl0"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jyhfs"]
 panorama = ExtResource("2_sugp2")
@@ -54,11 +52,3 @@ size = Vector3(50, 1, 50)
 material = SubResource("StandardMaterial3D_jyhfs")
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_4iego")]
-
-[node name="BlockGrassCornerLow" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -6)
-mesh = ExtResource("5_tefeu")
-
-[node name="BlockGrassCornerOverhangLow" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, -7)
-mesh = ExtResource("6_o6xl0")
