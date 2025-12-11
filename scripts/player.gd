@@ -27,6 +27,7 @@ const HAND_AIM_POS = Vector3(0.0, -0.15, -0.5)
 const NORMAL_FOV = 75.0
 const AIM_FOV = 55.0
 const SPRINT_FOV = 90.0
+const AIM_SENSITIVITY_MODIFIER = 0.5
 
 var move_speed = 5.0
 var sprinting = false
@@ -37,6 +38,7 @@ var grabbing_ledge = false
 var jump_count = 0
 var joystick_v_event = null
 var joystick_h_event = null
+var look_sensitivity = 0.4
 
 
 func _ready():
@@ -45,8 +47,8 @@ func _ready():
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		rotate_y(deg_to_rad(event.relative.x * GameManager.look_sensitivity) * (1 if GameManager.invert_x else -1))
-		head.rotate_x(deg_to_rad(event.relative.y * GameManager.look_sensitivity) * (1 if GameManager.invert_y else -1))
+		rotate_y(deg_to_rad(event.relative.x * look_sensitivity) * (1 if GameManager.invert_x else -1))
+		head.rotate_x(deg_to_rad(event.relative.y * look_sensitivity) * (1 if GameManager.invert_y else -1))
 		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-98), deg_to_rad(98))
 	elif event is InputEventJoypadMotion:
 		if event.axis == 2:
@@ -65,11 +67,11 @@ func _physics_process(delta):
 func _handle_controller_look():
 	if joystick_v_event:
 		if abs(joystick_v_event.get_axis_value()) > GameManager.joy_deadzone:
-			rotate_y(deg_to_rad(joystick_v_event.get_axis_value() * GameManager.look_sensitivity) * GameManager.controller_sensitivity_modifier * (1 if GameManager.invert_x else -1))
+			rotate_y(deg_to_rad(joystick_v_event.get_axis_value() * look_sensitivity) * GameManager.controller_sensitivity_modifier * (1 if GameManager.invert_x else -1))
 	
 	if joystick_h_event:
 		if abs(joystick_h_event.get_axis_value()) > GameManager.joy_deadzone:
-			head.rotate_x(deg_to_rad(joystick_h_event.get_axis_value() * GameManager.look_sensitivity) * GameManager.controller_sensitivity_modifier * (1 if GameManager.invert_y else -1))
+			head.rotate_x(deg_to_rad(joystick_h_event.get_axis_value() * look_sensitivity) * GameManager.controller_sensitivity_modifier * (1 if GameManager.invert_y else -1))
 			head.rotation.x = clamp(head.rotation.x, deg_to_rad(-98), deg_to_rad(98))
 
 
@@ -141,8 +143,10 @@ func _control_loop(delta):
 	
 	if aiming:
 		hand.position = lerp(hand.position, HAND_AIM_POS, delta * LERP_SPEED)
+		look_sensitivity = GameManager.look_sensitivity * AIM_SENSITIVITY_MODIFIER
 	else:
 		hand.position = lerp(hand.position, HAND_START_POS, delta * LERP_SPEED)
+		look_sensitivity = GameManager.look_sensitivity
 	
 	
 	if aiming:
