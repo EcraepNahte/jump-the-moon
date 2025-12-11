@@ -4,10 +4,13 @@ extends CharacterBody3D
 @onready var standing_collision_shape = $StandingCollisionShape
 @onready var crouching_collision_shape = $CrouchingCollisionShape
 @onready var head = $Head
+@onready var hand = $Head/Hand
+@onready var camera_3d = $Head/Camera3D
 @onready var crouch_raycast = $CrouchRaycast
 @onready var front_face = $LedgeRaycasts/FrontFace
 @onready var top_of_ledge = $LedgeRaycasts/TopOfLedge
 @onready var high_ledge: RayCast3D = $LedgeRaycasts/HighLedge
+@onready var gun_anim: AnimationPlayer = $"Head/Hand/blaster-h3/AnimationPlayer"
 
 const JUMP_VELOCITY = 4.5
 const LEDGE_JUMP_VELOCITY = 6.0
@@ -19,10 +22,16 @@ const STANDING_HEAD_HEIGHT = 0.75
 const CROUCHING_HEAD_HEIGHT = 0.0
 const LERP_SPEED = 5.0
 const JUMPS = 1
+const HAND_START_POS = Vector3(0.3, -0.2, -0.5)
+const HAND_AIM_POS = Vector3(0.0, -0.15, -0.5)
+const NORMAL_FOV = 75.0
+const AIM_FOV = 55.0
+const SPRINT_FOV = 90.0
 
 var move_speed = 5.0
 var sprinting = false
 var crouching = false
+var aiming = false
 var trying_to_stand = false
 var grabbing_ledge = false
 var jump_count = 0
@@ -75,7 +84,7 @@ func _control_loop(delta):
 	else:
 		jump_count = 0
 
-	# Handle jump.
+	# Handle jump
 	if Input.is_action_just_pressed("jump") and jump_count < JUMPS:
 		if grabbing_ledge:
 			velocity.y = LEDGE_JUMP_VELOCITY
@@ -109,16 +118,39 @@ func _control_loop(delta):
 	elif crouching:
 		_crouch(delta)
 	
+	# Handle Shoot
+	if Input.is_action_pressed("shoot"):
+		if not gun_anim.is_playing():
+			gun_anim.play("shoot")
+	
+	# Handle Aim
+	aiming = Input.is_action_pressed("aim")
+	
 	if grabbing_ledge:
 		move_speed = BASE_MOVE_SPEED * LEDGE_GRAB_MULTIPLIER
+		aiming = false
 		if velocity.y < 0.0:
 			velocity.y = 0.0
-	elif crouching:
+	elif crouching or aiming:
 		move_speed = BASE_MOVE_SPEED * CROUCH_MULTIPLIER
 	elif sprinting:
 		move_speed = BASE_MOVE_SPEED * SPRINT_MULTIPLIER
+		aiming = false
 	else:
 		move_speed = BASE_MOVE_SPEED
+	
+	if aiming:
+		hand.position = lerp(hand.position, HAND_AIM_POS, delta * LERP_SPEED)
+	else:
+		hand.position = lerp(hand.position, HAND_START_POS, delta * LERP_SPEED)
+	
+	
+	if aiming:
+		camera_3d.fov = lerp(camera_3d.fov, AIM_FOV, delta * LERP_SPEED)
+	elif sprinting:
+		camera_3d.fov = lerp(camera_3d.fov, SPRINT_FOV, delta * LERP_SPEED)
+	else:
+		camera_3d.fov = lerp(camera_3d.fov, NORMAL_FOV, delta * LERP_SPEED)
 	
 
 	# Get the input direction and handle the movement/deceleration.
