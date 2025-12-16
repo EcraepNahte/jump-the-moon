@@ -1,7 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dnsl2ghiipi1h"]
+[gd_scene load_steps=15 format=3 uid="uid://dnsl2ghiipi1h"]
 
 [ext_resource type="PackedScene" uid="uid://0xontrpulfdl" path="res://scenes/player.tscn" id="1_o5qli"]
-[ext_resource type="Texture2D" uid="uid://qhwdshn4lfi5" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://drm0otgfe8utj" path="res://assets/texture_07.png" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ivtsmgkpam0e" path="res://scenes/pause_menu.tscn" id="4_4iego"]
 [ext_resource type="AudioStream" uid="uid://bvqan4oqyjqkj" path="res://music/YuraSoop - Christmas Big Band.mp3.mp3" id="5_la5f3"]
@@ -10,15 +9,19 @@
 [ext_resource type="PackedScene" uid="uid://ck7jiyxpj8n1n" path="res://scenes/spawner.tscn" id="8_yqw71"]
 [ext_resource type="PackedScene" uid="uid://b3q0va5gl2ory" path="res://scenes/game_over_menu.tscn" id="9_8svks"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jyhfs"]
-panorama = ExtResource("2_sugp2")
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_psv61"]
 
-[sub_resource type="Sky" id="Sky_jyhfs"]
-sky_material = SubResource("PanoramaSkyMaterial_jyhfs")
+[sub_resource type="Sky" id="Sky_5h860"]
+sky_material = SubResource("ProceduralSkyMaterial_psv61")
 
 [sub_resource type="Environment" id="Environment_tbgi4"]
 background_mode = 2
-sky = SubResource("Sky_jyhfs")
+sky = SubResource("Sky_5h860")
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.990255, 0.991273, 0.992875, 1)
+fog_density = 0.1
+volumetric_fog_density = 0.025
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
 albedo_texture = ExtResource("3_sugp2")

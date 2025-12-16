@@ -22,7 +22,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	shoot()
 	if target:
 		look_at(target.position)
 	
@@ -67,16 +66,6 @@ func _on_player_detection_area_body_entered(body: Node3D) -> void:
 func _on_player_detection_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Player"):
 		target = null
-
-
-func _on_player_damage_area_body_shape_entered(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	if body.is_in_group("Player"):
-		in_damage_range = true
-
-
-func _on_player_damage_area_body_shape_exited(body_rid: RID, body: Node3D, body_shape_index: int, local_shape_index: int) -> void:
-	if body and body.is_in_group("Player"):
-		in_damage_range = false
 
 
 func _on_enemy_shoot():
