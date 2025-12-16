@@ -1,0 +1,124 @@
+[gd_scene load_steps=6 format=3 uid="uid://c4jfobpp8jgai"]
+
+[ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_y6uo0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iyey8"]
+bg_color = Color(0.917647, 0, 0, 1)
+
+[sub_resource type="Theme" id="Theme_1v23k"]
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_iyey8")
+
+[sub_resource type="LabelSettings" id="LabelSettings_6amis"]
+font_size = 50
+font_color = Color(1, 1, 1, 0.596078)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7kxkx"]
+font_size = 50
+font_color = Color(1, 1, 1, 0.6)
+
+[node name="GameUI" type="CanvasLayer"]
+script = ExtResource("1_y6uo0")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -146.0
+offset_top = 50.0
+offset_right = 154.0
+offset_bottom = 77.0
+grow_horizontal = 2
+theme = SubResource("Theme_1v23k")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Reticle" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+label_settings = SubResource("LabelSettings_6amis")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Measure" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -67.0
+offset_top = -141.0
+offset_right = 573.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ColorRect" type="ColorRect" parent="Measure"]
+layout_mode = 0
+offset_top = 18.0
+offset_right = 8.0
+offset_bottom = 79.0
+color = Color(1, 1, 1, 0.6)
+
+[node name="ColorRect2" type="ColorRect" parent="Measure"]
+layout_mode = 0
+offset_top = 18.0
+offset_right = 659.0
+offset_bottom = 19.0
+color = Color(1, 1, 1, 0.423529)
+
+[node name="ColorRect3" type="ColorRect" parent="Measure"]
+layout_mode = 0
+offset_top = 30.0
+offset_right = 659.0
+offset_bottom = 31.0
+color = Color(1, 1, 1, 0.423529)
+
+[node name="ColorRect4" type="ColorRect" parent="Measure"]
+layout_mode = 0
+offset_top = 42.0
+offset_right = 659.0
+offset_bottom = 43.0
+color = Color(1, 1, 1, 0.423529)
+
+[node name="ColorRect5" type="ColorRect" parent="Measure"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 53.0
+offset_right = 660.0
+offset_bottom = 54.0
+color = Color(1, 1, 1, 0.423529)
+
+[node name="ColorRect6" type="ColorRect" parent="Measure"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 65.0
+offset_right = 660.0
+offset_bottom = 66.0
+color = Color(1, 1, 1, 0.423529)
+
+[node name="ColorRect7" type="ColorRect" parent="Measure"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 78.0
+offset_right = 660.0
+offset_bottom = 79.0
+color = Color(1, 1, 1, 0.423529)
+
+[node name="Label" type="Label" parent="Measure"]
+layout_mode = 0
+offset_left = -54.0
+offset_top = 12.0
+offset_bottom = 81.0
+text = " 𝄞 "
+label_settings = SubResource("LabelSettings_7kxkx")

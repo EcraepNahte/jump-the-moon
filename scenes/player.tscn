@@ -1,14 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://0xontrpulfdl"]
+[gd_scene load_steps=6 format=3 uid="uid://0xontrpulfdl"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="PackedScene" uid="uid://3vuxif7v1mhi" path="res://objects/blaster_h_2.tscn" id="2_g2els"]
+[ext_resource type="AudioStream" uid="uid://v47q7swr2071" path="res://music/laser7.wav" id="3_cla4r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3vyb7"]
 height = 1.25
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_3vyb7")
 
 [node name="StandingCollisionShape" type="CollisionShape3D" parent="."]
@@ -28,6 +31,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.2, -0.5)
 
 [node name="blaster-h3" parent="Head/Hand" instance=ExtResource("2_g2els")]
 
+[node name="Barrel" type="RayCast3D" parent="Head/Hand/blaster-h3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.511719)
+target_position = Vector3(0, 0, -1)
+
 [node name="CrouchRaycast" type="RayCast3D" parent="."]
 target_position = Vector3(0, 1, 0)
 
@@ -44,3 +51,6 @@ target_position = Vector3(0, 0, -0.6)
 [node name="TopOfLedge" type="RayCast3D" parent="LedgeRaycasts"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 target_position = Vector3(0, 0, -1)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_cla4r")

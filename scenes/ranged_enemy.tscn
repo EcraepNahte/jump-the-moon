@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://celk547r2hqc1"]
+
+[ext_resource type="Script" path="res://scripts/ranged_enemy.gd" id="1_ncrvr"]
+[ext_resource type="PackedScene" uid="uid://cxk57adjv18of" path="res://kenney-holiday/Models/GLB format/snowman-hat.glb" id="2_rdaa7"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2cmbg"]
+size = Vector3(0.75, 1.5, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l6etp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w7anu"]
+radius = 50.0
+
+[node name="RangedEnemy" type="CharacterBody3D"]
+collision_mask = 3
+script = ExtResource("1_ncrvr")
+
+[node name="snowman-hat2" parent="." instance=ExtResource("2_rdaa7")]
+transform = Transform3D(-1.6, 0, -1.39876e-07, 0, 1.6, 0, 1.39876e-07, 0, -1.6, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.213562, 0)
+shape = SubResource("BoxShape3D_2cmbg")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("SphereShape3D_l6etp")
+
+[node name="PlayerDetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectionArea"]
+shape = SubResource("SphereShape3D_w7anu")
+
+[node name="ShootPosition" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.432289, -0.573737)
+
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_exited"]

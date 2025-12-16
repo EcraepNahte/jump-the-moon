@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://thi6l2drslvg"]
+
+[ext_resource type="Script" path="res://scripts/melee_enemy.gd" id="1_1rmis"]
+[ext_resource type="PackedScene" uid="uid://bvrea4w70j3n7" path="res://kenney-holiday/Models/GLB format/gingerbread-man.glb" id="2_powhm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2cmbg"]
+size = Vector3(0.75, 1.5, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_l6etp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w7anu"]
+radius = 30.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7ccy1"]
+radius = 1.0
+
+[node name="MeleeEnemy" type="CharacterBody3D"]
+script = ExtResource("1_1rmis")
+
+[node name="gingerbread-man2" parent="." instance=ExtResource("2_powhm")]
+transform = Transform3D(5, 0, 0, 0, 5.24363, 0, 0, 0, 5, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.213562, 0)
+shape = SubResource("BoxShape3D_2cmbg")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("SphereShape3D_l6etp")
+
+[node name="PlayerDetectionArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDetectionArea"]
+shape = SubResource("SphereShape3D_w7anu")
+
+[node name="PlayerDamageArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerDamageArea"]
+shape = SubResource("SphereShape3D_7ccy1")
+
+[connection signal="body_entered" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_entered"]
+[connection signal="body_exited" from="PlayerDetectionArea" to="." method="_on_player_detection_area_body_exited"]
+[connection signal="body_shape_entered" from="PlayerDamageArea" to="." method="_on_player_damage_area_body_shape_entered"]
+[connection signal="body_shape_exited" from="PlayerDamageArea" to="." method="_on_player_damage_area_body_shape_exited"]

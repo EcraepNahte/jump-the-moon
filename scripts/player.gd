@@ -1,6 +1,8 @@
 extends CharacterBody3D
 
 
+const BULLET = preload("res://scenes/bullet.tscn")
+
 @onready var standing_collision_shape = $StandingCollisionShape
 @onready var crouching_collision_shape = $CrouchingCollisionShape
 @onready var head = $Head
@@ -11,6 +13,8 @@ extends CharacterBody3D
 @onready var top_of_ledge = $LedgeRaycasts/TopOfLedge
 @onready var high_ledge: RayCast3D = $LedgeRaycasts/HighLedge
 @onready var gun_anim: AnimationPlayer = $"Head/Hand/blaster-h3/AnimationPlayer"
+@onready var audio_stream_player_3d: AudioStreamPlayer3D = $AudioStreamPlayer3D
+@onready var barrel: RayCast3D = $"Head/Hand/blaster-h3/Barrel"
 
 const JUMP_VELOCITY = 4.5
 const LEDGE_JUMP_VELOCITY = 6.0
@@ -28,6 +32,7 @@ const NORMAL_FOV = 75.0
 const AIM_FOV = 55.0
 const SPRINT_FOV = 90.0
 const AIM_SENSITIVITY_MODIFIER = 0.5
+const BASE_HEALTH = 100
 
 var move_speed = 5.0
 var sprinting = false
@@ -43,6 +48,7 @@ var look_sensitivity = 0.4
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	GameManager.player_shoot.connect(_on_player_shoot)
 
 
 func _input(event):
@@ -64,6 +70,10 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+func take_damage(damage):
+	GameManager.deal_damage(damage)
+
+
 func _handle_controller_look():
 	if joystick_v_event:
 		if abs(joystick_v_event.get_axis_value()) > GameManager.joy_deadzone:
@@ -75,8 +85,7 @@ func _handle_controller_look():
 			head.rotation.x = clamp(head.rotation.x, deg_to_rad(-98), deg_to_rad(98))
 
 
-func _control_loop(delta):
-	# Handle Pause
+func _control_loop(delta):	# Handle Pause
 	if Input.is_action_just_pressed("pause"):
 		GameManager.pause_game()
 		
@@ -85,6 +94,9 @@ func _control_loop(delta):
 		velocity += get_gravity() * delta
 	else:
 		jump_count = 0
+
+	#if Input.is_action_pressed("shoot"): # TODO Delete this once the bullets work
+		#_on_player_shoot()
 
 	# Handle jump
 	if Input.is_action_just_pressed("jump") and jump_count < JUMPS:
@@ -120,11 +132,6 @@ func _control_loop(delta):
 	elif crouching:
 		_crouch(delta)
 	
-	# Handle Shoot
-	if Input.is_action_pressed("shoot"):
-		if not gun_anim.is_playing():
-			gun_anim.play("shoot")
-	
 	# Handle Aim
 	aiming = Input.is_action_pressed("aim")
 	
@@ -142,10 +149,10 @@ func _control_loop(delta):
 		move_speed = BASE_MOVE_SPEED
 	
 	if aiming:
-		hand.position = lerp(hand.position, HAND_AIM_POS, delta * LERP_SPEED)
+		hand.position = lerp(hand.position, HAND_AIM_POS, delta * LERP_SPEED * 2)
 		look_sensitivity = GameManager.look_sensitivity * AIM_SENSITIVITY_MODIFIER
 	else:
-		hand.position = lerp(hand.position, HAND_START_POS, delta * LERP_SPEED)
+		hand.position = lerp(hand.position, HAND_START_POS, delta * LERP_SPEED * 2)
 		look_sensitivity = GameManager.look_sensitivity
 	
 	
@@ -188,3 +195,15 @@ func _crouch(delta):
 	standing_collision_shape.disabled = true
 	crouching_collision_shape.disabled = false
 	head.position.y = lerp(head.position.y, CROUCHING_HEAD_HEIGHT, delta * LERP_SPEED)
+
+
+func _on_player_shoot():
+	if not gun_anim.is_playing():
+		gun_anim.play("shoot")
+		audio_stream_player_3d.play()
+		var bullet = BULLET.instantiate()
+		get_parent().add_child(bullet)
+		bullet.global_position = barrel.global_position
+		bullet.global_rotation = barrel.global_rotation
+		
+	

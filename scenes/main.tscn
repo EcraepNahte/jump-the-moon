@@ -1,9 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://dnsl2ghiipi1h"]
+[gd_scene load_steps=16 format=3 uid="uid://dnsl2ghiipi1h"]
 
 [ext_resource type="PackedScene" uid="uid://0xontrpulfdl" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://qhwdshn4lfi5" path="res://assets/kloofendal_48d_partly_cloudy_puresky_2k.hdr" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://drm0otgfe8utj" path="res://assets/texture_07.png" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://ivtsmgkpam0e" path="res://scenes/pause_menu.tscn" id="4_4iego"]
+[ext_resource type="AudioStream" uid="uid://bvqan4oqyjqkj" path="res://music/YuraSoop - Christmas Big Band.mp3.mp3" id="5_la5f3"]
+[ext_resource type="Script" path="res://scripts/music_controller.gd" id="6_2eehq"]
+[ext_resource type="PackedScene" uid="uid://c4jfobpp8jgai" path="res://scenes/game_ui.tscn" id="8_ifd3u"]
+[ext_resource type="PackedScene" uid="uid://ck7jiyxpj8n1n" path="res://scenes/spawner.tscn" id="8_yqw71"]
+[ext_resource type="PackedScene" uid="uid://b3q0va5gl2ory" path="res://scenes/game_over_menu.tscn" id="9_8svks"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_jyhfs"]
 panorama = ExtResource("2_sugp2")
@@ -19,10 +24,55 @@ sky = SubResource("Sky_jyhfs")
 albedo_texture = ExtResource("3_sugp2")
 uv1_triplanar = true
 
-[node name="main" type="Node3D"]
+[sub_resource type="Animation" id="Animation_ior8g"]
+resource_name = "music_timeline"
+length = 300.0
+step = 0.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MusicController")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5, 0.9, 1.4, 2.5, 2.9, 3.3, 4.1, 4.4, 4.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"_trigger_spawn_melee_1"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_2"
+}, {
+"args": [],
+"method": &"_trigger_spawn_ranged_1"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_4"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_3"
+}, {
+"args": [],
+"method": &"_trigger_spawn_ranged_2"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}]
+}
 
-[node name="Player" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_33aqn"]
+_data = {
+"music_timeline": SubResource("Animation_ior8g")
+}
+
+[node name="main" type="Node3D"]
 
 [node name="env" type="Node3D" parent="."]
 
@@ -33,22 +83,55 @@ environment = SubResource("Environment_tbgi4")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
+[node name="Player" parent="." instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 use_collision = true
-size = Vector3(50, 1, 50)
+size = Vector3(500, 1, 500)
 material = SubResource("StandardMaterial3D_jyhfs")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 33)
-use_collision = true
-size = Vector3(50, 1, 50)
-material = SubResource("StandardMaterial3D_jyhfs")
+[node name="spawners" type="Node3D" parent="."]
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 0)
-use_collision = true
-size = Vector3(50, 1, 50)
-material = SubResource("StandardMaterial3D_jyhfs")
+[node name="spawner_1" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -20)
+
+[node name="spawner_2" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -20)
+index = 2
+
+[node name="spawner_3" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -20)
+index = 3
+
+[node name="spawner_4" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20)
+index = 4
+
+[node name="spawner_5" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -30)
+type = "ranged"
+index = 2
+
+[node name="spawner_6" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -30)
+type = "ranged"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_33aqn")
+}
+
+[node name="MusicController" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_la5f3")
+autoplay = true
+playback_type = 1
+script = ExtResource("6_2eehq")
+shoot_times = Array[float]([6.8, 7.0, 7.4, 8.1, 8.6, 8.9, 9.1, 9.3, 10.2, 10.4, 10.7, 11.0, 11.2, 11.5, 11.8, 12.0, 12.25, 12.4, 12.7, 13.25, 13.65, 14.1, 14.35, 14.8, 15.15, 15.35, 15.75, 16.0, 16.2, 16.45, 17.0, 17.25, 17.4, 19.9, 20.3, 20.6, 20.75, 21.15, 21.85, 22.0, 22.25, 22.45, 23.25, 23.5, 23.65, 23.95, 23.1, 24.5, 25.2, 25.35, 25.6, 25.8, 26.9, 27.3, 27.45, 27.7, 27.9, 28.15, 28.3, 29.0, 29.4, 29.55, 29.85, 30.25, 30.4, 30.65, 30.8, 33.6, 33.75, 34.15, 34.5, 34.9, 35.4, 35.7, 35.8, 36.15, 36.95, 37.1, 37.5, 37.8, 37.95, 38.25, 38.6, 38.75, 39.0, 39.2, 40.0, 40.45, 40.85, 41.2, 41.6, 41.95, 42.15, 42.5, 42.8, 43.0, 43.25, 43.8, 44.0, 44.2, 46.7, 47.1, 47.4, 47.55, 48.0, 48.65, 48.8, 49.0, 49.2, 50.0, 50.35, 50.75, 50.9, 51.25, 52.0, 52.15, 52.4, 52.55, 53.7, 54.0, 54.25, 54.5, 54.65, 54.9, 55.05, 55.75, 56.2, 56.35, 56.6, 57.0, 57.15, 57.4, 57.55])
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_4iego")]
+
+[node name="GameUI" parent="." instance=ExtResource("8_ifd3u")]
+
+[node name="GameOverMenu" parent="." instance=ExtResource("9_8svks")]

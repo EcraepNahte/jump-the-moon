@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ck7jiyxpj8n1n"]
+
+[ext_resource type="Script" path="res://scripts/spawner.gd" id="1_ler35"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hiuar"]
+radius = 50.0
+
+[node name="spawner" type="Node3D"]
+script = ExtResource("1_ler35")
+
+[node name="PlayerRange" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerRange"]
+shape = SubResource("SphereShape3D_hiuar")
+
+[connection signal="body_entered" from="PlayerRange" to="." method="_on_player_range_body_entered"]
+[connection signal="body_exited" from="PlayerRange" to="." method="_on_player_range_body_exited"]

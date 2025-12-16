@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://b3q0va5gl2ory"]
+
+[ext_resource type="Script" path="res://scripts/game_over_menu.gd" id="1_ki54h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ti2e4"]
+font_size = 55
+
+[sub_resource type="Theme" id="Theme_owaen"]
+Button/colors/font_color = Color(0.701961, 0.0941176, 0.352941, 1)
+
+[node name="GameOverMenu" type="CanvasLayer"]
+follow_viewport_enabled = true
+script = ExtResource("1_ki54h")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.278431, 0.278431, 0.278431, 0.478431)
+
+[node name="MainMenu" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MainMenu"]
+layout_mode = 2
+text = "GameOver"
+label_settings = SubResource("LabelSettings_ti2e4")
+horizontal_alignment = 1
+
+[node name="Restart" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Restart"
+flat = true
+
+[node name="MainMenu" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Main Menu"
+flat = true
+
+[node name="Exit" type="Button" parent="MainMenu"]
+layout_mode = 2
+theme = SubResource("Theme_owaen")
+text = "Exit"
+flat = true
+
+[connection signal="pressed" from="MainMenu/Restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="MainMenu/MainMenu" to="." method="_on_main_menu_pressed"]
+[connection signal="pressed" from="MainMenu/Exit" to="." method="_on_exit_pressed"]
