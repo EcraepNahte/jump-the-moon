@@ -1,13 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://dnsl2ghiipi1h"]
+[gd_scene load_steps=21 format=3 uid="uid://dnsl2ghiipi1h"]
 
 [ext_resource type="PackedScene" uid="uid://0xontrpulfdl" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://rs8wfgslkepu" path="res://objects/collectable_gift.tscn" id="3_f2fjr"]
 [ext_resource type="Texture2D" uid="uid://drm0otgfe8utj" path="res://assets/texture_07.png" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://thi6l2drslvg" path="res://scenes/melee_enemy.tscn" id="4_4ft4i"]
 [ext_resource type="PackedScene" uid="uid://ivtsmgkpam0e" path="res://scenes/pause_menu.tscn" id="4_4iego"]
+[ext_resource type="PackedScene" uid="uid://byalt16lmbeg0" path="res://scenes/stage.tscn" id="4_neqld"]
 [ext_resource type="AudioStream" uid="uid://bvqan4oqyjqkj" path="res://music/YuraSoop - Christmas Big Band.mp3.mp3" id="5_la5f3"]
-[ext_resource type="Script" path="res://scripts/music_controller.gd" id="6_2eehq"]
+[ext_resource type="PackedScene" uid="uid://celk547r2hqc1" path="res://scenes/ranged_enemy.tscn" id="5_lifoh"]
 [ext_resource type="PackedScene" uid="uid://c4jfobpp8jgai" path="res://scenes/game_ui.tscn" id="8_ifd3u"]
 [ext_resource type="PackedScene" uid="uid://ck7jiyxpj8n1n" path="res://scenes/spawner.tscn" id="8_yqw71"]
 [ext_resource type="PackedScene" uid="uid://b3q0va5gl2ory" path="res://scenes/game_over_menu.tscn" id="9_8svks"]
+[ext_resource type="PackedScene" uid="uid://byjwsj5cdwij0" path="res://scenes/intro_menu.tscn" id="12_fi0f8"]
+[ext_resource type="PackedScene" uid="uid://nyloqhmvpg70" path="res://scenes/health_pickup.tscn" id="13_8wy4a"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_psv61"]
 
@@ -29,7 +34,7 @@ uv1_triplanar = true
 
 [sub_resource type="Animation" id="Animation_ior8g"]
 resource_name = "music_timeline"
-length = 300.0
+length = 59.0
 step = 0.1
 tracks/0/type = "method"
 tracks/0/imported = false
@@ -38,8 +43,8 @@ tracks/0/path = NodePath("MusicController")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.5, 0.9, 1.4, 2.5, 2.9, 3.3, 4.1, 4.4, 4.7),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0.5, 0.9, 1.4, 2.2, 2.6, 3, 7.7, 12.7, 13.1, 19.3, 22.3, 26.1, 26.5, 28.5, 36.2, 36.7, 46.1, 49.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "values": [{
 "args": [],
 "method": &"_trigger_spawn_melee_1"
@@ -60,6 +65,323 @@ tracks/0/keys = {
 "method": &"_trigger_spawn_ranged_2"
 }, {
 "args": [],
+"method": &"_trigger_spawn_ranged_1"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_3"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_4"
+}, {
+"args": [],
+"method": &"_trigger_spawn_ranged_1"
+}, {
+"args": [],
+"method": &"_trigger_spawn_ranged_2"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_1"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_2"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_3"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_1"
+}, {
+"args": [],
+"method": &"_trigger_spawn_melee_2"
+}, {
+"args": [],
+"method": &"_trigger_spawn_ranged_1"
+}, {
+"args": [],
+"method": &"_trigger_spawn_ranged_2"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MusicController")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(7.3, 7.7, 8.1, 9.1, 9.5, 9.9, 10.7, 11.1, 11.5, 12.4, 12.8, 13.2, 14, 14.4, 14.8, 15.7, 16.1, 16.5, 17.4, 17.8, 18.2, 19, 19.4, 19.8, 20.5, 20.9, 21.3, 22.1, 22.5, 22.9, 23.5, 23.9, 24.3, 25.1, 25.5, 25.9, 26.7, 27.1, 27.5, 28.5, 28.9, 29.3, 30.2, 30.6, 31, 31.9, 32.3, 32.7, 33.8, 34.2, 34.6, 35.4, 35.8, 36.2, 37.4, 37.8, 38.2, 39.2, 39.6, 40, 40.7, 41.1, 41.5, 42.3, 42.7, 43.1, 44.2, 44.6, 45, 45.6, 46, 46.4, 47.2, 47.6, 48, 48.8, 49.2, 49.6, 50.4, 50.8, 51.2, 52.3, 52.7, 53.1, 54.1, 54.5, 54.9, 55.6, 56, 56.4, 57.6, 58, 58.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
+"method": &"_trigger_enemy_shoot"
+}, {
+"args": [],
 "method": &"_trigger_enemy_shoot"
 }, {
 "args": [],
@@ -75,6 +397,81 @@ _data = {
 "music_timeline": SubResource("Animation_ior8g")
 }
 
+[sub_resource type="GDScript" id="GDScript_ixtgw"]
+script/source = "extends AudioStreamPlayer3D
+
+
+@onready var animation_player: AnimationPlayer = $\"../AnimationPlayer\"
+
+@export var shoot_times: Array[float] = []
+
+var upcoming_shoot_times = []
+var ui_note_times = []
+var loop = 0
+
+func _ready() -> void:
+	animation_player.play(\"music_timeline\")
+	upcoming_shoot_times = shoot_times.duplicate()
+	populate_ui_notes()
+
+
+func populate_ui_notes():
+	ui_note_times = shoot_times.duplicate()
+	
+	for i in ui_note_times.size():
+		ui_note_times[i] -= GameManager.note_preview_time
+
+
+func _process(delta: float) -> void:
+	var playback = get_playback_position()
+	
+	if len(ui_note_times) > 0 and ui_note_times[0] <= playback:
+		GameManager.spawn_ui_note.emit()
+		ui_note_times.remove_at(0)
+	
+	if len(upcoming_shoot_times) > 0 and upcoming_shoot_times[0] <= playback:
+		GameManager.player_shoot.emit()
+		upcoming_shoot_times.remove_at(0)
+	
+	if GameManager.LOOP_TIME <= playback:
+		animation_player.stop(false)
+		animation_player.play(\"music_timeline\")
+		upcoming_shoot_times = shoot_times.duplicate()
+		populate_ui_notes()
+		play(0.0)
+		loop += 1
+		if loop >= GameManager.LOOPS:
+			GameManager.end_game()
+
+
+func _trigger_spawn_melee_1():
+	GameManager.spawn_melee_1.emit();
+
+
+func _trigger_spawn_melee_2():
+	GameManager.spawn_melee_2.emit();
+
+
+func _trigger_spawn_melee_3():
+	GameManager.spawn_melee_3.emit();
+
+
+func _trigger_spawn_melee_4():
+	GameManager.spawn_melee_4.emit();
+
+
+func _trigger_spawn_ranged_1():
+	GameManager.spawn_ranged_1.emit();
+
+
+func _trigger_spawn_ranged_2():
+	GameManager.spawn_ranged_2.emit();
+
+
+func _trigger_enemy_shoot():
+	GameManager.enemy_shoot.emit();
+"
+
 [node name="main" type="Node3D"]
 
 [node name="env" type="Node3D" parent="."]
@@ -89,37 +486,201 @@ shadow_enabled = true
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
-use_collision = true
-size = Vector3(500, 1, 500)
-material = SubResource("StandardMaterial3D_jyhfs")
-
 [node name="spawners" type="Node3D" parent="."]
 
 [node name="spawner_1" parent="spawners" instance=ExtResource("8_yqw71")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -16)
 
 [node name="spawner_2" parent="spawners" instance=ExtResource("8_yqw71")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -16)
 index = 2
 
 [node name="spawner_3" parent="spawners" instance=ExtResource("8_yqw71")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -16)
 index = 3
 
 [node name="spawner_4" parent="spawners" instance=ExtResource("8_yqw71")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -16)
+index = 4
+
+[node name="spawner_29" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -143, 0, 6)
+
+[node name="spawner_30" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133, 0, 6)
+index = 2
+
+[node name="spawner_31" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -123, 0, 6)
+index = 3
+
+[node name="spawner_32" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -113, 0, 6)
+index = 4
+
+[node name="spawner_17" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -119)
+
+[node name="spawner_18" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -119)
+index = 2
+
+[node name="spawner_19" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -119)
+index = 3
+
+[node name="spawner_20" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -119)
+index = 4
+
+[node name="spawner_21" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -118, 0, -77)
+
+[node name="spawner_22" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -108, 0, -77)
+index = 2
+
+[node name="spawner_23" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -98, 0, -77)
+index = 3
+
+[node name="spawner_24" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88, 0, -77)
+index = 4
+
+[node name="spawner_25" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -72, 0, -126)
+
+[node name="spawner_26" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62, 0, -126)
+index = 2
+
+[node name="spawner_27" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52, 0, -126)
+index = 3
+
+[node name="spawner_28" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42, 0, -126)
+index = 4
+
+[node name="spawner_7" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59, 2, 2)
+
+[node name="spawner_8" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -49, 2, 2)
+index = 2
+
+[node name="spawner_9" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39, 2, 2)
+index = 3
+
+[node name="spawner_10" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 2, 2)
+index = 4
+
+[node name="spawner_11" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, -65)
+
+[node name="spawner_12" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 2, -65)
+index = 2
+
+[node name="spawner_13" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 2, -65)
+index = 3
+
+[node name="spawner_14" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 2, -65)
 index = 4
 
 [node name="spawner_5" parent="spawners" instance=ExtResource("8_yqw71")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 2, -20)
+type = "ranged"
+index = 2
+
+[node name="spawner_15" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, -36)
 type = "ranged"
 index = 2
 
 [node name="spawner_6" parent="spawners" instance=ExtResource("8_yqw71")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -30)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 2, -20)
 type = "ranged"
+
+[node name="spawner_16" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -46, 2, -83)
+type = "ranged"
+
+[node name="CollectableGift" parent="spawners" instance=ExtResource("3_f2fjr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -25)
+
+[node name="MeleeEnemy" parent="spawners" instance=ExtResource("4_4ft4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117, 0, 8)
+
+[node name="MeleeEnemy2" parent="spawners" instance=ExtResource("4_4ft4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -130, 0, -1)
+
+[node name="MeleeEnemy3" parent="spawners" instance=ExtResource("4_4ft4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -115, 0, -6)
+
+[node name="RangedEnemy" parent="spawners" instance=ExtResource("5_lifoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105, 4, -94)
+
+[node name="RangedEnemy2" parent="spawners" instance=ExtResource("5_lifoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -111, 15, -98)
+
+[node name="CollectableGift2" parent="spawners" instance=ExtResource("3_f2fjr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -105, 12, -100)
+
+[node name="spawner" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -109, 12, -103)
+
+[node name="spawner2" parent="spawners" instance=ExtResource("8_yqw71")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101, 12, -97)
+index = 2
+
+[node name="RangedEnemy3" parent="spawners" instance=ExtResource("5_lifoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -103, 8, -110)
+
+[node name="RangedEnemy4" parent="spawners" instance=ExtResource("5_lifoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -99, 3, -90)
+
+[node name="CollectableGift3" parent="spawners" instance=ExtResource("3_f2fjr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -124, 0, 4)
+
+[node name="CollectableGift4" parent="spawners" instance=ExtResource("3_f2fjr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -115)
+
+[node name="CollectableGift5" parent="spawners" instance=ExtResource("3_f2fjr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36, 2, -42)
+
+[node name="MeleeEnemy4" parent="spawners" instance=ExtResource("4_4ft4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 0, -110)
+
+[node name="MeleeEnemy5" parent="spawners" instance=ExtResource("4_4ft4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -107)
+
+[node name="MeleeEnemy6" parent="spawners" instance=ExtResource("4_4ft4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, -110)
+
+[node name="MeleeEnemy7" parent="spawners" instance=ExtResource("4_4ft4i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -122)
+
+[node name="RangedEnemy5" parent="spawners" instance=ExtResource("5_lifoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -125)
+
+[node name="RangedEnemy6" parent="spawners" instance=ExtResource("5_lifoh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -127)
+
+[node name="stage" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="stage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180, -1, -180)
+use_collision = true
+size = Vector3(500, 1, 500)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="Stage" parent="stage" instance=ExtResource("4_neqld")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -128,13 +689,37 @@ libraries = {
 
 [node name="MusicController" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("5_la5f3")
+attenuation_model = 3
 autoplay = true
 playback_type = 1
-script = ExtResource("6_2eehq")
-shoot_times = Array[float]([6.8, 7.0, 7.4, 8.1, 8.6, 8.9, 9.1, 9.3, 10.2, 10.4, 10.7, 11.0, 11.2, 11.5, 11.8, 12.0, 12.25, 12.4, 12.7, 13.25, 13.65, 14.1, 14.35, 14.8, 15.15, 15.35, 15.75, 16.0, 16.2, 16.45, 17.0, 17.25, 17.4, 19.9, 20.3, 20.6, 20.75, 21.15, 21.85, 22.0, 22.25, 22.45, 23.25, 23.5, 23.65, 23.95, 23.1, 24.5, 25.2, 25.35, 25.6, 25.8, 26.9, 27.3, 27.45, 27.7, 27.9, 28.15, 28.3, 29.0, 29.4, 29.55, 29.85, 30.25, 30.4, 30.65, 30.8, 33.6, 33.75, 34.15, 34.5, 34.9, 35.4, 35.7, 35.8, 36.15, 36.95, 37.1, 37.5, 37.8, 37.95, 38.25, 38.6, 38.75, 39.0, 39.2, 40.0, 40.45, 40.85, 41.2, 41.6, 41.95, 42.15, 42.5, 42.8, 43.0, 43.25, 43.8, 44.0, 44.2, 46.7, 47.1, 47.4, 47.55, 48.0, 48.65, 48.8, 49.0, 49.2, 50.0, 50.35, 50.75, 50.9, 51.25, 52.0, 52.15, 52.4, 52.55, 53.7, 54.0, 54.25, 54.5, 54.65, 54.9, 55.05, 55.75, 56.2, 56.35, 56.6, 57.0, 57.15, 57.4, 57.55])
+script = SubResource("GDScript_ixtgw")
+shoot_times = Array[float]([3.9, 4.3, 4.7, 5.5, 5.9, 6.4, 6.8, 7.0, 7.4, 8.1, 8.6, 8.9, 9.1, 9.3, 10.2, 10.4, 10.7, 11.0, 11.2, 11.5, 11.8, 12.0, 12.25, 12.4, 12.7, 13.25, 13.65, 14.1, 14.35, 14.8, 15.15, 15.35, 15.75, 16.0, 16.2, 16.45, 17.0, 17.25, 17.4, 19.9, 20.3, 20.6, 20.75, 21.15, 21.85, 22.0, 22.25, 22.45, 23.25, 23.5, 23.65, 23.95, 23.1, 24.5, 25.2, 25.35, 25.6, 25.8, 26.9, 27.3, 27.45, 27.7, 27.9, 28.15, 28.3, 29.0, 29.4, 29.55, 29.85, 30.25, 30.4, 30.65, 30.8, 33.6, 33.75, 34.15, 34.5, 34.9, 35.4, 35.7, 35.8, 36.15, 36.95, 37.1, 37.5, 37.8, 37.95, 38.25, 38.6, 38.75, 39.0, 39.2, 40.0, 40.45, 40.85, 41.2, 41.6, 41.95, 42.15, 42.5, 42.8, 43.0, 43.25, 43.8, 44.0, 44.2, 46.7, 47.1, 47.4, 47.55, 48.0, 48.65, 48.8, 49.0, 49.2, 50.0, 50.35, 50.75, 50.9, 51.25, 52.0, 52.15, 52.4, 52.55, 53.7, 54.0, 54.25, 54.5, 54.65, 54.9, 55.05, 55.75, 56.2, 56.35, 56.6, 57.0, 57.15, 57.4, 57.55])
 
 [node name="PauseMenu" parent="." instance=ExtResource("4_4iego")]
 
 [node name="GameUI" parent="." instance=ExtResource("8_ifd3u")]
 
 [node name="GameOverMenu" parent="." instance=ExtResource("9_8svks")]
+
+[node name="IntroScreen" parent="." instance=ExtResource("12_fi0f8")]
+
+[node name="HealthPickup" parent="." instance=ExtResource("13_8wy4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, -56)
+
+[node name="HealthPickup2" parent="." instance=ExtResource("13_8wy4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, -124)
+
+[node name="HealthPickup3" parent="." instance=ExtResource("13_8wy4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65, 2, 10)
+
+[node name="HealthPickup4" parent="." instance=ExtResource("13_8wy4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114, 12, -102)
+
+[node name="HealthPickup5" parent="." instance=ExtResource("13_8wy4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -133, 0, -28)
+
+[node name="HealthPickup6" parent="." instance=ExtResource("13_8wy4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41, 0, -126)
+
+[node name="HealthPickup7" parent="." instance=ExtResource("13_8wy4a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -134, 0, -129)

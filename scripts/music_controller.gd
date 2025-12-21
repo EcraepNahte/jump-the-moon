@@ -4,8 +4,6 @@ extends AudioStreamPlayer3D
 @onready var animation_player: AnimationPlayer = $"../AnimationPlayer"
 
 @export var shoot_times: Array[float] = []
-@export var loop_count = 2
-@export var loop_time = 59.0
 
 var upcoming_shoot_times = []
 var ui_note_times = []
@@ -31,13 +29,14 @@ func _process(delta: float) -> void:
 		GameManager.player_shoot.emit()
 		upcoming_shoot_times.remove_at(0)
 	
-	if loop_time <= playback:
+	if GameManager.LOOP_TIME <= playback:
 		animation_player.stop(false)
 		animation_player.play("music_timeline")
 		upcoming_shoot_times = shoot_times.duplicate()
+		ui_note_times = shoot_times.duplicate()
 		play(0.0)
 		loop += 1
-		if loop >= loop_count:
+		if loop >= GameManager.LOOPS:
 			GameManager.end_game()
 
 

@@ -5,7 +5,7 @@ const SPEED = 2.5
 const DAMAGE = 10
 const DAMAGE_TIME = 0.5
 
-var health = 30.0
+var health = 20.0
 var damage_timer: Timer
 var target = null
 var in_damage_range = false
@@ -18,7 +18,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	
 	if target and not in_damage_range:
 		move_toward_target(delta);
 		look_at(target.position)

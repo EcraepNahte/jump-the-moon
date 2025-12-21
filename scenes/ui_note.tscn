@@ -4,6 +4,7 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_386du"]
 font_size = 50
+font_color = Color(1, 0, 0, 1)
 
 [node name="UINote" type="Control"]
 layout_mode = 3

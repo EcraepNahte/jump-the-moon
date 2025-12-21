@@ -8,7 +8,7 @@ const DAMAGE_TIME = 0.3
 
 @onready var shoot_position: Node3D = $ShootPosition
 
-var health = 20.0
+var health = 10.0
 var shoot_timer: Timer
 var target = null
 var in_damage_range = false

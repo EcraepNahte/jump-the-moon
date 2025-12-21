@@ -47,7 +47,6 @@ func _on_resume():
 	if get_tree().paused:
 		GameManager.resume_game()
 	visible = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	show_main_menu()
 
 
@@ -58,6 +57,7 @@ func _on_settings_clicked():
 	$SettingsMenu/SensitivitySlider.value = GameManager.look_sensitivity
 	$SettingsMenu/SensitivitySlider.min_value = GameManager.MIN_SENSITIVITY
 	$SettingsMenu/SensitivitySlider.max_value = GameManager.MAX_SENSITIVITY
+	$SettingsMenu/UseFreeShoot.button_pressed = GameManager.use_free_shoot
 	show_settings_menu()
 
 
@@ -66,6 +66,7 @@ func _on_settings_save_clicked():
 	GameManager.toggle_crouch = $SettingsMenu/ToggleCrouch.button_pressed
 	GameManager.invert_y = $SettingsMenu/InvertAim.button_pressed
 	GameManager.look_sensitivity = $SettingsMenu/SensitivitySlider.value
+	GameManager.use_free_shoot = $SettingsMenu/UseFreeShoot.pressed
 	show_main_menu()
 
 

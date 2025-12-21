@@ -21,43 +21,43 @@ func _ready() -> void:
 func _on_spawn_melee_1():
 	if type == "melee" and index == 1 and player_in_range:
 		var instance = MELEE_ENEMY.instantiate()
-		instance.global_position = global_position
 		get_parent().add_child(instance)
+		instance.global_position = global_position
 
 
 func _on_spawn_melee_2():
 	if type == "melee" and index == 2 and player_in_range:
 		var instance = MELEE_ENEMY.instantiate()
-		instance.global_position = global_position
 		get_parent().add_child(instance)
+		instance.global_position = global_position
 
 
 func _on_spawn_melee_3():
 	if type == "melee" and index == 3 and player_in_range:
 		var instance = MELEE_ENEMY.instantiate()
-		instance.global_position = global_position
 		get_parent().add_child(instance)
+		instance.global_position = global_position
 
 
 func _on_spawn_melee_4():
 	if type == "melee" and index == 4 and player_in_range:
 		var instance = MELEE_ENEMY.instantiate()
-		instance.global_position = global_position
 		get_parent().add_child(instance)
+		instance.global_position = global_position
 
 
 func _on_spawn_ranged_1():
 	if type == "ranged" and index == 1 and player_in_range:
 		var instance = RANGED_ENEMY.instantiate()
-		instance.global_position = global_position
 		get_parent().add_child(instance)
+		instance.global_position = global_position
 
 
 func _on_spawn_ranged_2():
 	if type == "ranged" and index == 2 and player_in_range:
 		var instance = RANGED_ENEMY.instantiate()
-		instance.global_position = global_position
 		get_parent().add_child(instance)
+		instance.global_position = global_position
 
 
 func _on_player_range_body_entered(body: Node3D) -> void:

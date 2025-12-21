@@ -10,6 +10,9 @@ func _ready() -> void:
 
 func _on_game_over():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	$MainMenu/Restart.grab_focus()
+	if GameManager.collected_gifts == 5:
+		$MainMenu/Label.text = 'YOU WIN!'
 	show()
 
 

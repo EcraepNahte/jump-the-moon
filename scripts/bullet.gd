@@ -3,7 +3,7 @@ extends Area3D
 
 const DAMAGE = 10.0
 
-@export var speed = 25.0
+@export var speed = 40.0
 
 @onready var mesh_instance_3d: MeshInstance3D = $MeshInstance3D
 @onready var gpu_particles_3d: GPUParticles3D = $GPUParticles3D

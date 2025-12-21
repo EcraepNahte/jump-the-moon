@@ -103,6 +103,10 @@ max_value = 1.0
 step = 0.01
 value = 0.5
 
+[node name="UseFreeShoot" type="CheckButton" parent="SettingsMenu"]
+layout_mode = 2
+text = "Free Shoot Mode"
+
 [node name="Save" type="Button" parent="SettingsMenu"]
 layout_mode = 2
 text = "Save"

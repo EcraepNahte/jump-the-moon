@@ -95,8 +95,8 @@ func _control_loop(delta):	# Handle Pause
 	else:
 		jump_count = 0
 
-	#if Input.is_action_pressed("shoot"): # TODO Delete this once the bullets work
-		#_on_player_shoot()
+	if Input.is_action_pressed("shoot") and GameManager.use_free_shoot:
+		shoot()
 
 	# Handle jump
 	if Input.is_action_just_pressed("jump") and jump_count < JUMPS:
@@ -197,7 +197,7 @@ func _crouch(delta):
 	head.position.y = lerp(head.position.y, CROUCHING_HEAD_HEIGHT, delta * LERP_SPEED)
 
 
-func _on_player_shoot():
+func shoot():
 	if not gun_anim.is_playing():
 		gun_anim.play("shoot")
 		audio_stream_player_3d.play()
@@ -205,5 +205,9 @@ func _on_player_shoot():
 		get_parent().add_child(bullet)
 		bullet.global_position = barrel.global_position
 		bullet.global_rotation = barrel.global_rotation
-		
 	
+
+
+func _on_player_shoot():
+	if not GameManager.use_free_shoot:
+		shoot()

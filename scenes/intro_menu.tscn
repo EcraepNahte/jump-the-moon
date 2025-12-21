@@ -1,0 +1,137 @@
+[gd_scene load_steps=5 format=3 uid="uid://byjwsj5cdwij0"]
+
+[ext_resource type="Script" path="res://scripts/intro_screen.gd" id="1_3s4jj"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ti2e4"]
+font_size = 55
+
+[sub_resource type="LabelSettings" id="LabelSettings_kub5j"]
+font_color = Color(0.289876, 0.761805, 0.829291, 1)
+
+[sub_resource type="Theme" id="Theme_owaen"]
+Button/colors/font_color = Color(0.701961, 0.0941176, 0.352941, 1)
+
+[node name="IntroScreen" type="CanvasLayer"]
+follow_viewport_enabled = true
+script = ExtResource("1_3s4jj")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.278431, 0.278431, 0.278431, 0.478431)
+
+[node name="MainMenu" type="VBoxContainer" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -182.0
+offset_right = 150.0
+offset_bottom = 182.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MainMenu"]
+layout_mode = 2
+text = "Carol of Carnage"
+label_settings = SubResource("LabelSettings_ti2e4")
+horizontal_alignment = 1
+
+[node name="Intro" type="Label" parent="MainMenu"]
+custom_minimum_size = Vector2(300, 50)
+layout_mode = 2
+text = "The evil gingerbread men are trying to stop Christmas by stealing the presents. Collect the five presents before time runs out to save christmas. But be careful, you shoot with the music, so time your shots appropriately."
+label_settings = SubResource("LabelSettings_kub5j")
+horizontal_alignment = 1
+autowrap_mode = 3
+max_lines_visible = 8
+
+[node name="Resume" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Play"
+flat = true
+
+[node name="Settings" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Settings"
+flat = true
+
+[node name="Exit" type="Button" parent="MainMenu"]
+layout_mode = 2
+theme = SubResource("Theme_owaen")
+text = "Exit"
+flat = true
+
+[node name="SettingsMenu" type="VBoxContainer" parent="."]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsMenu"]
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_ti2e4")
+horizontal_alignment = 1
+
+[node name="ToggleSprint" type="CheckButton" parent="SettingsMenu"]
+layout_mode = 2
+text = "Toggle Sprint"
+alignment = 1
+
+[node name="ToggleCrouch" type="CheckButton" parent="SettingsMenu"]
+layout_mode = 2
+text = "Toggle Crouch
+"
+alignment = 1
+
+[node name="InvertAim" type="CheckButton" parent="SettingsMenu"]
+layout_mode = 2
+text = "Invert Aim"
+alignment = 1
+
+[node name="SensitivityLabel" type="Label" parent="SettingsMenu"]
+layout_mode = 2
+text = "Look Sensitivity"
+horizontal_alignment = 1
+
+[node name="SensitivitySlider" type="HSlider" parent="SettingsMenu"]
+layout_mode = 2
+min_value = 0.1
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="UseFreeShoot" type="CheckButton" parent="SettingsMenu"]
+layout_mode = 2
+text = "Free Shoot Mode"
+
+[node name="Save" type="Button" parent="SettingsMenu"]
+layout_mode = 2
+text = "Save"
+flat = true
+
+[node name="Cancel" type="Button" parent="SettingsMenu"]
+layout_mode = 2
+theme = SubResource("Theme_owaen")
+text = "Cancel"
+flat = true
+
+[connection signal="pressed" from="MainMenu/Resume" to="." method="_on_resume"]
+[connection signal="pressed" from="MainMenu/Settings" to="." method="_on_settings_clicked"]
+[connection signal="pressed" from="MainMenu/Exit" to="." method="_on_exit_clicked"]
+[connection signal="pressed" from="SettingsMenu/Save" to="." method="_on_settings_save_clicked"]
+[connection signal="pressed" from="SettingsMenu/Cancel" to="." method="_on_settings_cancel_clicked"]

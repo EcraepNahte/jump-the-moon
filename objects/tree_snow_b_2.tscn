@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://djrhlsh3mwi4p"]
+
+[ext_resource type="PackedScene" uid="uid://b3ifryvs5d4mf" path="res://kenney-holiday/Models/GLB format/tree-snow-b.glb" id="1_2m2l2"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3p810"]
+height = 4.0
+radius = 1.0
+
+[node name="tree-snow-b2" instance=ExtResource("1_2m2l2")]
+
+[node name="tree-snow-b" parent="." index="0"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+shape = SubResource("CylinderShape3D_3p810")

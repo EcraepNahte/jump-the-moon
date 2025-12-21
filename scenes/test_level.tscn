@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs4qyoq37b0f4"]
+
+[ext_resource type="PackedScene" uid="uid://0xontrpulfdl" path="res://scenes/player.tscn" id="2_p5i00"]
+[ext_resource type="PackedScene" uid="uid://ivtsmgkpam0e" path="res://scenes/pause_menu.tscn" id="3_2fy22"]
+[ext_resource type="PackedScene" uid="uid://byalt16lmbeg0" path="res://scenes/stage.tscn" id="3_8ygj8"]
+[ext_resource type="Script" path="res://scripts/intro_screen.gd" id="3_d07f2"]
+
+[node name="Stage" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("2_p5i00")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="PauseMenu" parent="." instance=ExtResource("3_2fy22")]
+script = ExtResource("3_d07f2")
+
+[node name="Stage" parent="." instance=ExtResource("3_8ygj8")]

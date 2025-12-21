@@ -1,0 +1,129 @@
+[gd_scene load_steps=5 format=3 uid="uid://7o47lp1a450k"]
+
+[ext_resource type="PackedScene" uid="uid://byalt16lmbeg0" path="res://scenes/stage.tscn" id="1_nmwkf"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3rep1"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_5oyvt"]
+font_size = 55
+
+[sub_resource type="Theme" id="Theme_40ygr"]
+Button/colors/font_color = Color(0.701961, 0.0941176, 0.352941, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Stage" parent="." instance=ExtResource("1_nmwkf")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88, 2, 0)
+fov = 50.625
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera3D"]
+
+[node name="Control" type="Control" parent="Camera3D/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="VBoxContainer" parent="Camera3D/CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Carol of Carnage" type="Label" parent="Camera3D/CanvasLayer/Control/Menu"]
+layout_mode = 2
+text = "Carol of Carnage"
+label_settings = SubResource("LabelSettings_3rep1")
+
+[node name="Settings" type="Button" parent="Camera3D/CanvasLayer/Control/Menu"]
+layout_mode = 2
+text = "Settings"
+flat = true
+
+[node name="Exit" type="Button" parent="Camera3D/CanvasLayer/Control/Menu"]
+layout_mode = 2
+text = "Exit
+"
+flat = true
+
+[node name="Play Game" type="Button" parent="Camera3D/CanvasLayer/Control/Menu"]
+layout_mode = 2
+text = "Play Game"
+flat = true
+
+[node name="SettingsMenu" type="VBoxContainer" parent="Camera3D/CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Camera3D/CanvasLayer/Control/SettingsMenu"]
+layout_mode = 2
+text = "Settings"
+label_settings = SubResource("LabelSettings_5oyvt")
+horizontal_alignment = 1
+
+[node name="ToggleSprint" type="CheckButton" parent="Camera3D/CanvasLayer/Control/SettingsMenu"]
+layout_mode = 2
+text = "Toggle Sprint"
+alignment = 1
+
+[node name="ToggleCrouch" type="CheckButton" parent="Camera3D/CanvasLayer/Control/SettingsMenu"]
+layout_mode = 2
+text = "Toggle Crouch
+"
+alignment = 1
+
+[node name="InvertAim" type="CheckButton" parent="Camera3D/CanvasLayer/Control/SettingsMenu"]
+layout_mode = 2
+text = "Invert Aim"
+alignment = 1
+
+[node name="SensitivityLabel" type="Label" parent="Camera3D/CanvasLayer/Control/SettingsMenu"]
+layout_mode = 2
+text = "Look Sensitivity"
+horizontal_alignment = 1
+
+[node name="SensitivitySlider" type="HSlider" parent="Camera3D/CanvasLayer/Control/SettingsMenu"]
+layout_mode = 2
+min_value = 0.1
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="UseFreeShoot" type="CheckButton" parent="Camera3D/CanvasLayer/Control/SettingsMenu"]
+layout_mode = 2
+text = "Free Shoot Mode"
+
+[node name="Save" type="Button" parent="Camera3D/CanvasLayer/Control/SettingsMenu"]
+layout_mode = 2
+text = "Save"
+flat = true
+
+[node name="Cancel" type="Button" parent="Camera3D/CanvasLayer/Control/SettingsMenu"]
+layout_mode = 2
+theme = SubResource("Theme_40ygr")
+text = "Cancel"
+flat = true
