@@ -40,15 +40,12 @@ func _on_pause():
 	# Toggle the visibility of the menu root node (CanvasLayer)
 	visible = true
 	show_main_menu()
-	
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
 func _on_resume():
 	if get_tree().paused:
 		GameManager.resume_game()
 	visible = false
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	show_main_menu()
 
 

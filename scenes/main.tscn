@@ -1,8 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://dnsl2ghiipi1h"]
+[gd_scene load_steps=19 format=3 uid="uid://dnsl2ghiipi1h"]
 
 [ext_resource type="PackedScene" uid="uid://0xontrpulfdl" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="PackedScene" uid="uid://rs8wfgslkepu" path="res://objects/collectable_gift.tscn" id="3_f2fjr"]
-[ext_resource type="Texture2D" uid="uid://drm0otgfe8utj" path="res://assets/texture_07.png" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://thi6l2drslvg" path="res://scenes/melee_enemy.tscn" id="4_4ft4i"]
 [ext_resource type="PackedScene" uid="uid://ivtsmgkpam0e" path="res://scenes/pause_menu.tscn" id="4_4iego"]
 [ext_resource type="PackedScene" uid="uid://byalt16lmbeg0" path="res://scenes/stage.tscn" id="4_neqld"]
@@ -27,10 +26,6 @@ fog_mode = 1
 fog_light_color = Color(0.990255, 0.991273, 0.992875, 1)
 fog_density = 0.1
 volumetric_fog_density = 0.025
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jyhfs"]
-albedo_texture = ExtResource("3_sugp2")
-uv1_triplanar = true
 
 [sub_resource type="Animation" id="Animation_ior8g"]
 resource_name = "music_timeline"
@@ -673,12 +668,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, -125)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0, -127)
 
 [node name="stage" type="Node3D" parent="."]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="stage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180, -1, -180)
-use_collision = true
-size = Vector3(500, 1, 500)
-material = SubResource("StandardMaterial3D_jyhfs")
 
 [node name="Stage" parent="stage" instance=ExtResource("4_neqld")]
 

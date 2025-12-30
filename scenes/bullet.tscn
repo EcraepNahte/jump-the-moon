@@ -21,8 +21,6 @@ initial_velocity_max = 5.0
 collision_mode = 1
 collision_friction = 0.0
 collision_bounce = 0.0
-sub_emitter_mode = 3
-sub_emitter_amount_at_collision = 1
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6epmw"]
 albedo_color = Color(1, 1, 0, 1)

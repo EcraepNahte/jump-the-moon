@@ -47,7 +47,6 @@ var look_sensitivity = 0.4
 
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	GameManager.player_shoot.connect(_on_player_shoot)
 
 

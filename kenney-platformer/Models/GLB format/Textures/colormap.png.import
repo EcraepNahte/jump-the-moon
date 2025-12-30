@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7tewwf3a72li"
-path.s3tc="res://.godot/imported/colormap.png-bbfbffc48a2c02e3624404f243aba651.s3tc.ctex"
-path.etc2="res://.godot/imported/colormap.png-bbfbffc48a2c02e3624404f243aba651.etc2.ctex"
+path="res://.godot/imported/colormap.png-bbfbffc48a2c02e3624404f243aba651.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://kenney-platformer/Models/GLB format/Textures/colormap.png"
-dest_files=["res://.godot/imported/colormap.png-bbfbffc48a2c02e3624404f243aba651.s3tc.ctex", "res://.godot/imported/colormap.png-bbfbffc48a2c02e3624404f243aba651.etc2.ctex"]
+dest_files=["res://.godot/imported/colormap.png-bbfbffc48a2c02e3624404f243aba651.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=1
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
